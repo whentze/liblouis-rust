@@ -7,7 +7,7 @@ use std::marker::PhantomData;
 use std::os::raw::{c_char, c_int, c_uint};
 use std::path::Path;
 
-pub mod mode;
+pub mod modes;
 
 type LouisString = widestring::UCString<louis_sys::widechar>;
 const OUTLEN_MULTIPLIER: c_int = 4 + 2 * std::mem::size_of::<louis_sys::widechar>() as c_int;
@@ -85,7 +85,7 @@ impl Louis {
     /// You can also translate directly to Unicode Braille dots:
     /// 
     /// ```
-    /// # use louis::{Louis, mode::DOTS_UNICODE};
+    /// # use louis::{Louis, modes::DOTS_UNICODE};
     /// # let louis = Louis::new().unwrap();
     /// let dots = louis.translate_simple("sr.tbl", "Добродошли", DOTS_UNICODE);
     /// assert_eq!(dots, "⠨⠙⠕⠃⠗⠕⠙⠕⠱⠇⠊");
@@ -94,7 +94,7 @@ impl Louis {
         &self,
         table_name: &str,
         input: &str,
-        mode: mode::TranslationMode,
+        mode: modes::TranslationModes,
     ) -> String {
         let inbuf = LouisString::from_str(input).unwrap();
         let mut inlen = inbuf.len() as c_int;

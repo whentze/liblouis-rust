@@ -59,7 +59,7 @@ fn translate_simple_miss_everything() {
 
 #[test]
 fn translate_simple_dots_unicode() {
-    use super::mode::DOTS_UNICODE;
+    use super::modes::DOTS_UNICODE;
     let sentence = "Turn this sentence into braille dots please!";
     let louis = API.lock().unwrap();
     assert_eq!(louis.translate_simple("en_US.tbl", sentence, DOTS_UNICODE), "⠠⠞⠥⠗⠝⠀⠹⠀⠎⠢⠞⠰⠑⠀⠔⠖⠃⠗⠇⠀⠙⠕⠞⠎⠀⠏⠇⠂⠎⠑⠖");
