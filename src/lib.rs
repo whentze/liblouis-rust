@@ -4,7 +4,7 @@ use lazy_static::lazy_static;
 use louis_sys::ThreadUnsafetyToken;
 use std::ffi::{CStr, CString};
 use std::mem::drop;
-use std::os::raw::c_int;
+use std::os::raw::{c_int, c_uint};
 use std::path::Path;
 use std::sync::Mutex;
 
@@ -75,6 +75,41 @@ pub fn translate_simple(table_name: &str, input: &str, mode: mode::TranslationMo
     std::mem::forget(outvec);
     let outbuf = unsafe { LouisString::from_ptr(outptr, outlen as usize) }.unwrap();
     outbuf.to_string().unwrap()
+}
+
+fn lou_loglevel_to_level(level: c_uint) -> log::Level{
+    match level {
+        0...louis_sys::logLevels_LOG_ALL   => log::Level::Trace,
+        0...louis_sys::logLevels_LOG_DEBUG => log::Level::Debug,
+        0...louis_sys::logLevels_LOG_INFO  => log::Level::Info,
+        0...louis_sys::logLevels_LOG_WARN  => log::Level::Warn,
+        _                                  => log::Level::Error,
+    }
+}
+
+fn filter_to_lou_loglevel(filter: log::LevelFilter) -> c_uint {
+    match filter {
+        log::LevelFilter::Trace => louis_sys::logLevels_LOG_ALL,
+        log::LevelFilter::Debug => louis_sys::logLevels_LOG_DEBUG,
+        log::LevelFilter::Info  => louis_sys::logLevels_LOG_INFO,
+        log::LevelFilter::Warn  => louis_sys::logLevels_LOG_WARN,
+        log::LevelFilter::Error => louis_sys::logLevels_LOG_ERROR,
+        log::LevelFilter::Off   => louis_sys::logLevels_LOG_OFF,
+    }
+}
+
+pub fn enable_logging() {
+    let guard = TOKEN.lock();
+    unsafe {
+        louis_sys::lou_setLogLevel(filter_to_lou_loglevel(log::STATIC_MAX_LEVEL));
+        louis_sys::lou_registerLogCallback(Some(log_callback));
+    };
+    drop(guard);
+}
+
+unsafe extern "C" fn log_callback(level: louis_sys::logLevels, message: *const ::std::os::raw::c_char) {
+    let message_str = CStr::from_ptr(message).to_string_lossy();
+    log::log!(target: "liblouis", lou_loglevel_to_level(level), "{}", message_str);
 }
 
 #[cfg(test)]
