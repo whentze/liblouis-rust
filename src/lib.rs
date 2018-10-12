@@ -70,30 +70,31 @@ impl Louis {
     }
 
     /// Translates the text in `input` according to the table given by `table_name`.
-    /// 
+    ///
     /// # Examples
     ///
     /// Pass `mode=0` for regular translation:
-    /// 
+    ///
     /// ```
     /// # use louis::Louis;
     /// let louis = Louis::new().unwrap();
-    /// let brl = louis.translate_simple("ru.tbl", "Я понимаю", 0);
+    /// let brl = louis.translate_simple("ru.tbl", "Я понимаю", false, 0);
     /// assert_eq!(brl, "$ PONIMA|");
     /// ```
-    /// 
+    ///
     /// You can also translate directly to Unicode Braille dots:
-    /// 
+    ///
     /// ```
     /// # use louis::{Louis, modes::DOTS_UNICODE};
     /// # let louis = Louis::new().unwrap();
-    /// let dots = louis.translate_simple("sr.tbl", "Добродошли", DOTS_UNICODE);
+    /// let dots = louis.translate_simple("sr.tbl", "Добродошли", false, DOTS_UNICODE);
     /// assert_eq!(dots, "⠨⠙⠕⠃⠗⠕⠙⠕⠱⠇⠊");
     /// ```
     pub fn translate_simple(
         &self,
         table_name: &str,
         input: &str,
+        backwards: bool,
         mode: modes::TranslationModes,
     ) -> String {
         let inbuf = LouisString::from_str(input).unwrap();
@@ -104,16 +105,29 @@ impl Louis {
         let outptr = outvec.as_mut_ptr();
 
         unsafe {
-            louis_sys::lou_translateString(
-                CString::new(table_name).unwrap().as_ptr(),
-                inbuf.as_ptr(),
-                &mut inlen as *mut _,
-                outptr,
-                &mut outlen as *mut _,
-                std::ptr::null::<louis_sys::formtype>() as *mut _,
-                std::ptr::null::<std::os::raw::c_char>() as *mut _,
-                mode,
-            )
+            if backwards {
+                louis_sys::lou_backTranslateString(
+                    CString::new(table_name).unwrap().as_ptr(),
+                    inbuf.as_ptr(),
+                    &mut inlen as *mut _,
+                    outptr,
+                    &mut outlen as *mut _,
+                    std::ptr::null::<louis_sys::formtype>() as *mut _,
+                    std::ptr::null::<std::os::raw::c_char>() as *mut _,
+                    mode,
+                );
+            } else {
+                louis_sys::lou_translateString(
+                    CString::new(table_name).unwrap().as_ptr(),
+                    inbuf.as_ptr(),
+                    &mut inlen as *mut _,
+                    outptr,
+                    &mut outlen as *mut _,
+                    std::ptr::null::<louis_sys::formtype>() as *mut _,
+                    std::ptr::null::<std::os::raw::c_char>() as *mut _,
+                    mode,
+                );
+            }
         };
 
         std::mem::forget(outvec);
