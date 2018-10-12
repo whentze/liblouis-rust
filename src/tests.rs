@@ -39,6 +39,14 @@ fn translate_simple_miss_everything() {
 }
 
 #[test]
+fn translate_simple_dots_unicode() {
+    use super::mode::DOTS_UNICODE;
+    let sentence = "Turn this sentence into braille dots please!";
+    assert_eq!(translate_simple("en_US.tbl", sentence, DOTS_UNICODE), "⠠⠞⠥⠗⠝⠀⠹⠀⠎⠢⠞⠰⠑⠀⠔⠖⠃⠗⠇⠀⠙⠕⠞⠎⠀⠏⠇⠂⠎⠑⠖");
+}
+
+
+#[test]
 fn translate_simple_empty() {
     let sentence = "";
     assert_eq!(translate_simple("de.tbl", sentence, 0), "");
