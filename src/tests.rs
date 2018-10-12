@@ -27,6 +27,20 @@ fn translate_simple_en() {
 }
 
 #[test]
+fn translate_simple_escape_umlauts() {
+    use super::translate_simple;
+    let sentence = "äöü";
+    assert_eq!(translate_simple("en_US.tbl", sentence), "`a`o`u");
+}
+
+#[test]
+fn translate_simple_miss_everything() {
+    use super::translate_simple;
+    let sentence = "はたらく細胞";
+    assert_eq!(translate_simple("en_US.tbl", sentence), r"'\x306f''\x305f''\x3089''\x304f''\x7d30''\x80de'");
+}
+
+#[test]
 fn translate_simple_empty() {
     use super::translate_simple;
     let sentence = "";

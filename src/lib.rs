@@ -4,6 +4,7 @@ use lazy_static::lazy_static;
 use louis_sys::ThreadUnsafetyToken;
 use std::ffi::{CStr, CString};
 use std::mem::drop;
+use std::os::raw::c_int;
 use std::path::Path;
 use std::sync::Mutex;
 
@@ -45,12 +46,14 @@ pub fn list_tables() -> Vec<String> {
     res
 }
 
+const OUTLEN_MULTIPLIER : c_int = 4 + 2*std::mem::size_of::<louis_sys::widechar>() as c_int;
+
 pub fn translate_simple(table_name: &str, input: &str) -> String {
     let inbuf = LouisString::from_str(input).unwrap();
-    let mut inlen = inbuf.len() as std::os::raw::c_int;
+    let mut inlen = inbuf.len() as c_int;
 
-    let mut outvec = Vec::with_capacity(inbuf.len());
-    let mut outlen = inlen;
+    let mut outlen = inlen * OUTLEN_MULTIPLIER;
+    let mut outvec = Vec::with_capacity(outlen as usize);
     let outptr = outvec.as_mut_ptr();
 
     let guard = TOKEN.lock();
