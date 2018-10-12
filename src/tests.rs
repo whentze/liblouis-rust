@@ -17,29 +17,29 @@ fn list_tables() {
 #[test]
 fn translate_simple_de() {
     let sentence = "Dies ist ein kurzer Satz.";
-    assert_eq!(translate_simple("de.tbl", sentence), "d0s } 6 kz7 sz.");
+    assert_eq!(translate_simple("de.tbl", sentence, 0), "d0s } 6 kz7 sz.");
 }
 
 #[test]
 fn translate_simple_en() {
     let sentence = "This is an example sentence with a rare word: syzygy.";
-    assert_eq!(translate_simple("en_US.tbl", sentence), ",? is an example s5t;e )a r>e ~w3 syzygy4");
+    assert_eq!(translate_simple("en_US.tbl", sentence, 0), ",? is an example s5t;e )a r>e ~w3 syzygy4");
 }
 
 #[test]
 fn translate_simple_escape_umlauts() {
     let sentence = "äöü";
-    assert_eq!(translate_simple("en_US.tbl", sentence), "`a`o`u");
+    assert_eq!(translate_simple("en_US.tbl", sentence, 0), "`a`o`u");
 }
 
 #[test]
 fn translate_simple_miss_everything() {
     let sentence = "はたらく細胞";
-    assert_eq!(translate_simple("en_US.tbl", sentence), r"'\x306f''\x305f''\x3089''\x304f''\x7d30''\x80de'");
+    assert_eq!(translate_simple("en_US.tbl", sentence, 0), r"'\x306f''\x305f''\x3089''\x304f''\x7d30''\x80de'");
 }
 
 #[test]
 fn translate_simple_empty() {
     let sentence = "";
-    assert_eq!(translate_simple("de.tbl", sentence), "");
+    assert_eq!(translate_simple("de.tbl", sentence, 0), "");
 }

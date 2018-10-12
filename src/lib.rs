@@ -8,6 +8,8 @@ use std::os::raw::c_int;
 use std::path::Path;
 use std::sync::Mutex;
 
+pub mod mode;
+
 lazy_static! {
     pub static ref TOKEN: Mutex<ThreadUnsafetyToken> =
         Mutex::new(ThreadUnsafetyToken::take().expect("Could not get ThreadUnsafetyToken."));
@@ -28,7 +30,6 @@ pub fn list_tables() -> Vec<String> {
     let guard = TOKEN.lock();
     let list_begin = unsafe { louis_sys::lou_listTables() };
     drop(guard);
-
     let mut res = Vec::new();
     for offset in 0.. {
         let ptr = unsafe { *(list_begin.offset(offset)) };
@@ -48,7 +49,7 @@ pub fn list_tables() -> Vec<String> {
 
 const OUTLEN_MULTIPLIER : c_int = 4 + 2*std::mem::size_of::<louis_sys::widechar>() as c_int;
 
-pub fn translate_simple(table_name: &str, input: &str) -> String {
+pub fn translate_simple(table_name: &str, input: &str, mode: mode::TranslationMode) -> String {
     let inbuf = LouisString::from_str(input).unwrap();
     let mut inlen = inbuf.len() as c_int;
 
@@ -66,7 +67,7 @@ pub fn translate_simple(table_name: &str, input: &str) -> String {
             &mut outlen as *mut _,
             std::ptr::null::<louis_sys::formtype>() as *mut _,
             std::ptr::null::<std::os::raw::c_char>() as *mut _,
-            0,
+            mode,
         )
     };
     drop(guard);
