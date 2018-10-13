@@ -1,8 +1,13 @@
 [package]
 name = "louis"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["muvlon <muvlon@hentzes.de>"]
 edition = "2018"
+description = "Rusty Bindings to liblouis"
+repository = "https://github.com/whentze/liblouis-rust"
+categories = ["api-bindings", "text-processing", "localization", "encoding"]
+readme = "README.md"
+license = "GPL-3.0"
 
 [dependencies]
 louis-sys = "0.3.0"
