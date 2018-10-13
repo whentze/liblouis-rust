@@ -55,7 +55,7 @@ impl Louis {
         let mut res = Vec::new();
         for offset in 0.. {
             let ptr = unsafe { *(list_begin.offset(offset)) };
-            if ptr == std::ptr::null() {
+            if ptr.is_null() {
                 break;
             }
             let table_name = Path::new(unsafe { CStr::from_ptr(ptr) }.to_str().unwrap())
