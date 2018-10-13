@@ -1,7 +1,8 @@
 use super::Louis;
+use assert_cmd::prelude::*;
 use lazy_static::lazy_static;
+use std::process::Command;
 use std::sync::Mutex;
-use assert_cli::Assert;
 
 lazy_static! {
     static ref API: Mutex<Louis> = Mutex::new(Louis::new().unwrap());
@@ -45,7 +46,10 @@ fn translate_simple_en() {
 fn translate_simple_escape_umlauts() {
     let sentence = "äöü";
     let louis = API.lock().unwrap();
-    assert_eq!(louis.translate_simple("en_US.tbl", sentence, false, 0), "`a`o`u");
+    assert_eq!(
+        louis.translate_simple("en_US.tbl", sentence, false, 0),
+        "`a`o`u"
+    );
 }
 
 #[test]
@@ -75,20 +79,58 @@ fn translate_simple_empty() {
 
 #[test]
 fn example_lou_translate_forward_fr() {
-    Assert::example("lou_translate")
-        .with_args(&["fr-bfu-g2.ctb"])
-        .stdin("Le braille est un système d'écriture tactile à points saillants.")
-        .succeeds().and()
-        .stdout().is("¨l ;l û u sy d'é:iture tactile à pts s/|ôs.")
-        .unwrap();
+    Command::cargo_example("lou_translate")
+        .unwrap()
+        .arg("fr-bfu-g2.ctb")
+        .with_stdin().buffer("Le braille est un système d'écriture tactile à points saillants.")
+        .assert().success()
+        .stdout("¨l ;l û u sy d'é:iture tactile à pts s/|ôs.\n");
 }
 
 #[test]
 fn example_lou_translate_backward_fr() {
-    Assert::example("lou_translate")
-        .with_args(&["-b", "fr-bfu-g2.ctb"])
-        .stdin("¨l ;l û u sy d'é:iture tactile à pts s/|ôs.")
-        .succeeds().and()
-        .stdout().is("Le braille est un système d'écriture tactile à points saillants.")
-        .unwrap();
+    Command::cargo_example("lou_translate")
+        .unwrap()
+        .arg("-b")
+        .arg("fr-bfu-g2.ctb")
+        .with_stdin().buffer("¨l ;l û u sy d'é:iture tactile à pts s/|ôs.")
+        .assert().success()
+        .stdout("Le braille est un système d'écriture tactile à points saillants.\n");
+}
+
+#[ignore]
+#[test]
+fn example_lou_translate_all_tables() {
+    // Translate a string using all tables we can find using both the lou_translate from the examples directory
+    // and the lou_translate installed locally, then check if they agree.
+    // This takes a while, so it's disabled by default.
+    // Execute  `cargo test -- --ignored` to run this.
+    let sentence = "\
+        Here are some tricky characters:\n\
+        Whitespace: \r\u{200B}\u{2028}\u{2029}\u{2060}\u{FEFF}\n\
+        Multi-byte: 田中さんにあげて下さいパーティーへ行かないか\n\
+        Outside of BMP (i.e. UTF-16 needs surrogate pairs): 𐑖𐑞𐑟𐑤𐑣𐑡𐑙𐑲\n\
+        Combinations: ❤️é👯‍♂️\n\
+        Let's hope it works!! ﾟ･✿ヾ╲(｡◕‿◕｡)╱✿･ﾟ\n";
+
+    let louis = API.lock().unwrap();
+    let tables = louis.list_tables();
+    for table in tables {
+        let ours = Command::cargo_example("lou_translate")
+            .unwrap()
+            .arg(&table)
+            .with_stdin().buffer(sentence)
+            .assert().success()
+            .get_output()
+            .stdout.clone();
+
+        let expected = Command::new("lou_translate")
+            .arg(&table)
+            .with_stdin().buffer(sentence)
+            .assert().success()
+            .get_output()
+            .stdout.clone();
+            
+        assert_eq!(ours, expected);
+    }
 }
