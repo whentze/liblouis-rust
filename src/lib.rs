@@ -118,6 +118,7 @@ impl Louis {
         backwards: bool,
         mode: modes::TranslationModes,
     ) -> String {
+        let table_names = CString::new(table_names).unwrap();
         let inbuf = LouisString::from_str(input).unwrap();
         let mut inlen = inbuf.len() as c_int;
 
@@ -128,7 +129,7 @@ impl Louis {
         unsafe {
             if backwards {
                 louis_sys::lou_backTranslateString(
-                    CString::new(table_names).unwrap().as_ptr(),
+                    table_names.as_ptr(),
                     inbuf.as_ptr(),
                     &mut inlen as *mut _,
                     outptr,
@@ -139,7 +140,7 @@ impl Louis {
                 );
             } else {
                 louis_sys::lou_translateString(
-                    CString::new(table_names).unwrap().as_ptr(),
+                    table_names.as_ptr(),
                     inbuf.as_ptr(),
                     &mut inlen as *mut _,
                     outptr,
