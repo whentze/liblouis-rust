@@ -134,8 +134,8 @@ impl Louis {
                     &mut inlen as *mut _,
                     outptr,
                     &mut outlen as *mut _,
-                    std::ptr::null::<louis_sys::formtype>() as *mut _,
-                    std::ptr::null::<std::os::raw::c_char>() as *mut _,
+                    std::ptr::null_mut::<louis_sys::formtype>(),
+                    std::ptr::null_mut::<c_char>(),
                     mode,
                 );
             } else {
@@ -145,8 +145,8 @@ impl Louis {
                     &mut inlen as *mut _,
                     outptr,
                     &mut outlen as *mut _,
-                    std::ptr::null::<louis_sys::formtype>() as *mut _,
-                    std::ptr::null::<std::os::raw::c_char>() as *mut _,
+                    std::ptr::null_mut::<louis_sys::formtype>(),
+                    std::ptr::null_mut::<c_char>(),
                     mode,
                 );
             }
