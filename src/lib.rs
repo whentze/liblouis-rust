@@ -69,7 +69,7 @@ impl Louis {
         res
     }
 
-    /// Translates the text in `input` according to the table given by `table_name`.
+    /// Translates the text in `input` according to the tables given by `table_names`
     ///
     /// # Examples
     ///
@@ -90,9 +90,30 @@ impl Louis {
     /// let dots = louis.translate_simple("sr.tbl", "Добродошли", false, DOTS_UNICODE);
     /// assert_eq!(dots, "⠨⠙⠕⠃⠗⠕⠙⠕⠱⠇⠊");
     /// ```
+    ///
+    /// Pass `backwards=true` for backtranslation:
+    ///
+    /// ```
+    /// # use louis::Louis;
+    /// # let louis = Louis::new().unwrap();
+    /// let dots = "⠠⠭ ⠐⠺⠎⠖";
+    /// let txt = louis.translate_simple("en_US.tbl", dots, true, 0);
+    /// assert_eq!(txt, "It works!");
+    /// ```
+    ///
+    /// To use multiple tables, pass them as a comma-separated list:
+    ///
+    /// ```
+    /// # use louis::Louis;
+    /// # let louis = Louis::new().unwrap();
+    /// let txt = "This is another way to make dots.";
+    /// let dots = louis.translate_simple("unicode.dis,en_US.tbl", txt, false, 0);
+    /// assert_eq!(dots, "⠠⠹ ⠊⠎ ⠁⠝⠕⠮⠗ ⠺⠁⠽ ⠖⠍⠁⠅⠑ ⠙⠕⠞⠎⠲");
+    /// ```
+    ///
     pub fn translate_simple(
         &self,
-        table_name: &str,
+        table_names: &str,
         input: &str,
         backwards: bool,
         mode: modes::TranslationModes,
@@ -107,7 +128,7 @@ impl Louis {
         unsafe {
             if backwards {
                 louis_sys::lou_backTranslateString(
-                    CString::new(table_name).unwrap().as_ptr(),
+                    CString::new(table_names).unwrap().as_ptr(),
                     inbuf.as_ptr(),
                     &mut inlen as *mut _,
                     outptr,
@@ -118,7 +139,7 @@ impl Louis {
                 );
             } else {
                 louis_sys::lou_translateString(
-                    CString::new(table_name).unwrap().as_ptr(),
+                    CString::new(table_names).unwrap().as_ptr(),
                     inbuf.as_ptr(),
                     &mut inlen as *mut _,
                     outptr,

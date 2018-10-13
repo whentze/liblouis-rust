@@ -25,7 +25,7 @@ fn main() {
             Arg::with_name("backward")
                 .short("-b")
                 .long("--backward")
-                .help("[NOT YET WORKING] Backward translation using the given table")
+                .help("Backward translation using the given table")
                 .conflicts_with("forward"),
         )
         .get_matches();
