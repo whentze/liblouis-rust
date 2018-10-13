@@ -152,9 +152,8 @@ impl Louis {
             }
         };
 
-        std::mem::forget(outvec);
-        let outbuf = unsafe { LouisString::from_ptr(outptr, outlen as usize) }.unwrap();
-        outbuf.to_string().unwrap()
+        unsafe{ outvec.set_len(outlen as usize)};
+        LouisString::new(outvec).unwrap().to_string().unwrap()
     }
 
     fn configure_logging(&self) {
