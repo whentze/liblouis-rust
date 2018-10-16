@@ -1,6 +1,6 @@
 [package]
 name = "louis"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["muvlon <muvlon@hentzes.de>"]
 edition = "2018"
 description = "Rusty Bindings to liblouis"
