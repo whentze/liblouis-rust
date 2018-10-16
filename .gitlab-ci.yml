@@ -2,7 +2,8 @@ stages:
   - build
 
 before_script:
-  - apt install liblouis-dev
+  - apt-get update -y
+  - apt-get -y install liblouis-dev
 
 rust-stable:
   stage: build
