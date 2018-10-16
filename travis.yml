@@ -1,0 +1,18 @@
+language: rust
+
+addons:
+  apt:
+    packages:
+      - liblouis-dev
+
+rust:
+  - stable
+  - beta
+  - nightly
+
+matrix:
+  # Test on nightly Rust, but failures there won't break the build.
+  allow_failures:
+  - rust: nightly
+
+cache: cargo
