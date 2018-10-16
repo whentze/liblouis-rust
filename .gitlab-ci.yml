@@ -1,0 +1,12 @@
+stages:
+  - build
+
+before_script:
+  - apt install liblouis-dev
+
+rust-stable:
+  stage: build
+  image: rust:slim-stretch
+  script:
+    - cargo build --verbose
+    - cargo test --verbose
