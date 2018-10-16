@@ -3,11 +3,11 @@ stages:
 
 before_script:
   - apt-get update -y
-  - apt-get -y install liblouis-dev
+  - apt-get -y install liblouis-dev clang
 
 rust-stable:
   stage: build
-  image: rust:stretch
+  image: rust:stretch-slim
   script:
     - cargo build
     - cargo test
