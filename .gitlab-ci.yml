@@ -7,7 +7,7 @@ before_script:
 
 rust-stable:
   stage: build
-  image: rust:stretch-slim
+  image: rust:slim-stretch
   script:
     - cargo build
     - cargo test
