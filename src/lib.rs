@@ -1,5 +1,8 @@
 #![feature(dbg_macro)]
 
+#![allow(stable_features)]
+#![feature(use_extern_macros)]
+
 use louis_sys::ThreadUnsafetyToken;
 use std::cell::Cell;
 use std::ffi::{CStr, CString};
