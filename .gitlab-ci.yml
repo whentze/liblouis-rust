@@ -9,5 +9,9 @@ rust-stable:
   stage: build
   image: rust:stretch
   script:
-    - cargo build --verbose
-    - cargo test --verbose
+    - cargo build
+    - cargo test
+
+variables:
+  RUST_BACKTRACE: "1"
+  RUST_LOG: "info"
