@@ -1,7 +1,8 @@
-#![feature(dbg_macro)]
-
-#![allow(stable_features)]
-#![feature(use_extern_macros)]
+extern crate widestring;
+extern crate louis_sys;
+extern crate semver;
+#[macro_use]
+extern crate log;
 
 use louis_sys::ThreadUnsafetyToken;
 use std::cell::Cell;
@@ -204,8 +205,15 @@ fn filter_to_lou_loglevel(filter: log::LevelFilter) -> c_uint {
 
 unsafe extern "C" fn log_callback(level: louis_sys::logLevels, message: *const c_char) {
     let message_str = CStr::from_ptr(message).to_string_lossy();
-    log::log!(target: "liblouis", lou_loglevel_to_level(level), "{}", message_str);
+    log!(target: "liblouis", lou_loglevel_to_level(level), "{}", message_str);
 }
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+#[macro_use]
+extern crate lazy_static;
+
+#[cfg(test)]
+extern crate assert_cmd;

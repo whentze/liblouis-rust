@@ -1,3 +1,7 @@
+extern crate clap;
+extern crate louis;
+extern crate pretty_env_logger;
+
 use clap::{App, Arg};
 use louis::Louis;
 use std::io::{self, BufRead, Write};

@@ -3,7 +3,9 @@ use louis_sys::{
     translationModes_ucBrl,
 };
 
-pub type TranslationModes = std::os::raw::c_int;
+use std::os::raw::c_int;
+
+pub type TranslationModes = c_int;
 
 /// Output Braille dots using Unicode
 pub const DOTS_UNICODE: TranslationModes =

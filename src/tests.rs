@@ -1,8 +1,8 @@
 use super::Louis;
 use assert_cmd::prelude::*;
-use lazy_static::lazy_static;
 use std::process::Command;
 use std::sync::Mutex;
+
 
 lazy_static! {
     static ref API: Mutex<Louis> = Mutex::new(Louis::new().unwrap());
