@@ -6,7 +6,7 @@ before_script:
 
 rust-stable:
   stage: build
-  image: rust:slim-stretch
+  image: rust:stretch
   script:
     - cargo build --verbose
     - cargo test --verbose
