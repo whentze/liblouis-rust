@@ -14,4 +14,4 @@ rust-stable:
 
 variables:
   RUST_BACKTRACE: "1"
-  RUST_LOG: "info"
+  RUST_LOG: "warn"
