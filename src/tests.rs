@@ -79,8 +79,8 @@ fn translate_simple_empty() {
 
 #[test]
 fn example_lou_translate_forward_fr() {
-    Command::cargo_example("lou_translate")
-        .unwrap()
+    Command::new("cargo")
+        .args(&["run", "--example", "lou_translate", "--"])
         .arg("fr-bfu-g2.ctb")
         .with_stdin().buffer("Le braille est un système d'écriture tactile à points saillants.")
         .assert().success()
@@ -89,8 +89,8 @@ fn example_lou_translate_forward_fr() {
 
 #[test]
 fn example_lou_translate_backward_fr() {
-    Command::cargo_example("lou_translate")
-        .unwrap()
+    Command::new("cargo")
+        .args(&["run", "--example", "lou_translate", "--"])
         .arg("-b")
         .arg("fr-bfu-g2.ctb")
         .with_stdin().buffer("¨l ;l û u sy d'é:iture tactile à pts s/|ôs.")
@@ -116,8 +116,8 @@ fn example_lou_translate_all_tables() {
     let louis = API.lock().unwrap();
     let tables = louis.list_tables();
     for table in tables {
-        let ours = Command::cargo_example("lou_translate")
-            .unwrap()
+        let ours = Command::new("cargo")
+            .args(&["run", "--example", "lou_translate", "--"])
             .arg(&table)
             .with_stdin().buffer(sentence)
             .assert().success()
