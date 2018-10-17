@@ -1,7 +1,7 @@
 This is liblouis.info, produced by makeinfo version 6.5 from
 liblouis.texi.
 
-This manual is for liblouis (version 3.7.0, 31 August 2018), a Braille
+This manual is for liblouis (version 3.7.0, 17 October 2018), a Braille
 Translation and Back-Translation Library derived from the Linux screen
 reader BRLTTY.
 
@@ -39,7 +39,7 @@ File: liblouis.info,  Node: Top,  Next: Introduction,  Up: (dir)
 Liblouis User’s and Programmer’s Manual
 ***************************************
 
-This manual is for liblouis (version 3.7.0, 31 August 2018), a Braille
+This manual is for liblouis (version 3.7.0, 17 October 2018), a Braille
 Translation and Back-Translation Library derived from the Linux screen
 reader BRLTTY.
 
@@ -3693,172 +3693,172 @@ Program Index
 
 
 Tag Table:
-Node: Top1472
-Node: Introduction4607
-Node: How to Write Translation Tables6529
-Node: Overview8661
-Ref: virtual dots12187
-Node: Hyphenation Tables14710
-Node: Character-Definition Opcodes15566
-Ref: space opcode19761
-Ref: punctuation opcode19962
-Ref: digit opcode20245
-Ref: uplow opcode20417
-Ref: grouping opcode21375
-Ref: letter opcode22236
-Ref: lowercase opcode22458
-Ref: uppercase opcode22678
-Ref: litdigit opcode23061
-Ref: sign opcode23257
-Ref: math opcode23620
-Node: Braille Indicator Opcodes23891
-Ref: capsletter opcode24365
-Ref: begcapsword opcode24530
-Ref: endcapsword opcode25100
-Ref: capsmodechars opcode25464
-Ref: begcaps opcode25926
-Ref: endcaps opcode26500
-Ref: letsign opcode26701
-Ref: noletsign opcode26973
-Ref: noletsignbefore opcode27474
-Ref: noletsignafter opcode27879
-Ref: nocontractsign opcode28279
-Ref: numsign opcode28530
-Ref: numericnocontchars opcode29351
-Ref: numericmodechars opcode29928
-Ref: midendnumericmodechars opcode29963
-Node: Emphasis Opcodes30953
-Node: Emphasis class32031
-Ref: emphclass opcode32350
-Node: Contexts32597
-Node: None32938
-Ref: begemph opcode33254
-Ref: endemph opcode33395
-Node: Letter33531
-Ref: emphletter opcode33709
-Node: Word33874
-Ref: begemphword opcode34295
-Ref: endemphword opcode34520
-Node: Phrase34958
-Ref: begemphphrase opcode35456
-Ref: endemphphrase before opcode35612
-Ref: endemphphrase after opcode35852
-Ref: lenemphphrase opcode36240
-Node: Symbol36420
-Node: Fallback behavior36929
-Node: Computer braille37735
-Node: Special Symbol Opcodes38379
-Ref: decpoint opcode38685
-Ref: hyphen opcode39397
-Node: Special Processing Opcodes39615
-Ref: capsnocont opcode39892
-Node: Translation Opcodes40424
-Ref: noback opcode42321
-Ref: nofor opcode42589
-Ref: compbrl opcode42813
-Ref: comp6 opcode43320
-Ref: nocont opcode43873
-Ref: replace opcode44224
-Ref: always opcode44760
-Ref: repeated opcode45085
-Ref: repword opcode45444
-Ref: largesign opcode45842
-Ref: word opcode46493
-Ref: syllable opcode46653
-Ref: nocross opcode47252
-Ref: joinword opcode47813
-Ref: lowword opcode48322
-Ref: contraction opcode48705
-Ref: sufword opcode49565
-Ref: prfword opcode49707
-Ref: begword opcode49843
-Ref: begmidword opcode49968
-Ref: midword opcode50120
-Ref: midendword opcode50242
-Ref: endword opcode50388
-Ref: partword opcode50507
-Ref: exactdots opcode50696
-Ref: prepunc opcode51297
-Ref: postpunc opcode51442
-Ref: begnum opcode51582
-Ref: midnum opcode51807
-Ref: endnum opcode52075
-Ref: joinnum opcode52328
-Ref: Translation Opcodes-Footnote-152768
-Node: Character-Class Opcodes52854
-Ref: class opcode54115
-Ref: after opcode54306
-Ref: before opcode54639
-Node: Swap Opcodes54973
-Ref: swapcd opcode55764
-Ref: swapdd opcode55922
-Ref: swapcc opcode56313
-Node: The Context and Multipass Opcodes56610
-Ref: context opcode57847
-Node: The correct Opcode66541
-Ref: correct opcode66745
-Node: The match Opcode68207
-Ref: match opcode68958
-Ref: pattern expression syntax69640
-Node: Miscellaneous Opcodes71922
-Ref: include opcode72093
-Ref: locale opcode72544
-Ref: undefined opcode72651
-Ref: display opcode72983
-Ref: multind opcode74043
-Node: Notes on Back-Translation74911
-Ref: General Notes75098
-Ref: Back-translation with Liblouis77638
-Node: Table Metadata79441
-Ref: Query Syntax81005
-Node: Testing Translation Tables interactively81371
-Ref: common options82109
-Node: lou_debug82788
-Node: lou_trace87305
-Node: lou_checktable89217
-Node: lou_allround89815
-Node: lou_translate (program)90622
-Node: lou_checkhyphens92664
-Node: lou_checkyaml93238
-Node: Automated Testing of Translation Tables94192
-Ref: YAML Tests95128
-Ref: Inline definition of tables106860
-Node: Programming with liblouis107980
-Node: Overview (library)108811
-Node: Data structure of liblouis tables111974
-Node: How tables are found115386
-Node: Deprecation of the logging system116592
-Node: lou_version117600
-Node: lou_translateString117977
-Ref: translation-tables118806
-Ref: lou_translateString-Footnote-1124376
-Node: lou_translate124624
-Node: lou_backTranslateString126001
-Node: lou_backTranslate127628
-Node: lou_hyphenate128161
-Node: lou_compileString129779
-Node: lou_getTypeformForEmphClass130477
-Node: lou_dotsToChar131289
-Node: lou_charToDots132106
-Node: lou_registerLogCallback132940
-Node: lou_setLogLevel133670
-Node: lou_logFile134533
-Node: lou_logPrint135157
-Node: lou_logEnd135699
-Node: lou_setDataPath136115
-Node: lou_getDataPath136673
-Node: lou_getTable136997
-Node: lou_findTable137630
-Node: lou_indexTables139151
-Node: lou_checkTable139603
-Node: lou_readCharFromFile140383
-Node: lou_free141141
-Node: lou_charSize141643
-Node: Python bindings141982
-Node: Concept Index142498
-Node: Opcode Index143516
-Node: Function Index152837
-Node: Program Index154943
+Node: Top1473
+Node: Introduction4609
+Node: How to Write Translation Tables6531
+Node: Overview8663
+Ref: virtual dots12189
+Node: Hyphenation Tables14712
+Node: Character-Definition Opcodes15568
+Ref: space opcode19763
+Ref: punctuation opcode19964
+Ref: digit opcode20247
+Ref: uplow opcode20419
+Ref: grouping opcode21377
+Ref: letter opcode22238
+Ref: lowercase opcode22460
+Ref: uppercase opcode22680
+Ref: litdigit opcode23063
+Ref: sign opcode23259
+Ref: math opcode23622
+Node: Braille Indicator Opcodes23893
+Ref: capsletter opcode24367
+Ref: begcapsword opcode24532
+Ref: endcapsword opcode25102
+Ref: capsmodechars opcode25466
+Ref: begcaps opcode25928
+Ref: endcaps opcode26502
+Ref: letsign opcode26703
+Ref: noletsign opcode26975
+Ref: noletsignbefore opcode27476
+Ref: noletsignafter opcode27881
+Ref: nocontractsign opcode28281
+Ref: numsign opcode28532
+Ref: numericnocontchars opcode29353
+Ref: numericmodechars opcode29930
+Ref: midendnumericmodechars opcode29965
+Node: Emphasis Opcodes30955
+Node: Emphasis class32033
+Ref: emphclass opcode32352
+Node: Contexts32599
+Node: None32940
+Ref: begemph opcode33256
+Ref: endemph opcode33397
+Node: Letter33533
+Ref: emphletter opcode33711
+Node: Word33876
+Ref: begemphword opcode34297
+Ref: endemphword opcode34522
+Node: Phrase34960
+Ref: begemphphrase opcode35458
+Ref: endemphphrase before opcode35614
+Ref: endemphphrase after opcode35854
+Ref: lenemphphrase opcode36242
+Node: Symbol36422
+Node: Fallback behavior36931
+Node: Computer braille37737
+Node: Special Symbol Opcodes38381
+Ref: decpoint opcode38687
+Ref: hyphen opcode39399
+Node: Special Processing Opcodes39617
+Ref: capsnocont opcode39894
+Node: Translation Opcodes40426
+Ref: noback opcode42323
+Ref: nofor opcode42591
+Ref: compbrl opcode42815
+Ref: comp6 opcode43322
+Ref: nocont opcode43875
+Ref: replace opcode44226
+Ref: always opcode44762
+Ref: repeated opcode45087
+Ref: repword opcode45446
+Ref: largesign opcode45844
+Ref: word opcode46495
+Ref: syllable opcode46655
+Ref: nocross opcode47254
+Ref: joinword opcode47815
+Ref: lowword opcode48324
+Ref: contraction opcode48707
+Ref: sufword opcode49567
+Ref: prfword opcode49709
+Ref: begword opcode49845
+Ref: begmidword opcode49970
+Ref: midword opcode50122
+Ref: midendword opcode50244
+Ref: endword opcode50390
+Ref: partword opcode50509
+Ref: exactdots opcode50698
+Ref: prepunc opcode51299
+Ref: postpunc opcode51444
+Ref: begnum opcode51584
+Ref: midnum opcode51809
+Ref: endnum opcode52077
+Ref: joinnum opcode52330
+Ref: Translation Opcodes-Footnote-152770
+Node: Character-Class Opcodes52856
+Ref: class opcode54117
+Ref: after opcode54308
+Ref: before opcode54641
+Node: Swap Opcodes54975
+Ref: swapcd opcode55766
+Ref: swapdd opcode55924
+Ref: swapcc opcode56315
+Node: The Context and Multipass Opcodes56612
+Ref: context opcode57849
+Node: The correct Opcode66543
+Ref: correct opcode66747
+Node: The match Opcode68209
+Ref: match opcode68960
+Ref: pattern expression syntax69642
+Node: Miscellaneous Opcodes71924
+Ref: include opcode72095
+Ref: locale opcode72546
+Ref: undefined opcode72653
+Ref: display opcode72985
+Ref: multind opcode74045
+Node: Notes on Back-Translation74913
+Ref: General Notes75100
+Ref: Back-translation with Liblouis77640
+Node: Table Metadata79443
+Ref: Query Syntax81007
+Node: Testing Translation Tables interactively81373
+Ref: common options82111
+Node: lou_debug82790
+Node: lou_trace87307
+Node: lou_checktable89219
+Node: lou_allround89817
+Node: lou_translate (program)90624
+Node: lou_checkhyphens92666
+Node: lou_checkyaml93240
+Node: Automated Testing of Translation Tables94194
+Ref: YAML Tests95130
+Ref: Inline definition of tables106862
+Node: Programming with liblouis107982
+Node: Overview (library)108813
+Node: Data structure of liblouis tables111976
+Node: How tables are found115388
+Node: Deprecation of the logging system116594
+Node: lou_version117602
+Node: lou_translateString117979
+Ref: translation-tables118808
+Ref: lou_translateString-Footnote-1124378
+Node: lou_translate124626
+Node: lou_backTranslateString126003
+Node: lou_backTranslate127630
+Node: lou_hyphenate128163
+Node: lou_compileString129781
+Node: lou_getTypeformForEmphClass130479
+Node: lou_dotsToChar131291
+Node: lou_charToDots132108
+Node: lou_registerLogCallback132942
+Node: lou_setLogLevel133672
+Node: lou_logFile134535
+Node: lou_logPrint135159
+Node: lou_logEnd135701
+Node: lou_setDataPath136117
+Node: lou_getDataPath136675
+Node: lou_getTable136999
+Node: lou_findTable137632
+Node: lou_indexTables139153
+Node: lou_checkTable139605
+Node: lou_readCharFromFile140385
+Node: lou_free141143
+Node: lou_charSize141645
+Node: Python bindings141984
+Node: Concept Index142500
+Node: Opcode Index143518
+Node: Function Index152839
+Node: Program Index154945
 
 End Tag Table
 
