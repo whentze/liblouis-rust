@@ -1,3 +1,0 @@
-table: [tables/unicode.dis, tests/tables/letterDefTest.ctb]
-tests:
-  - [⠍⠎, ⠎⠍]
