@@ -24,7 +24,11 @@ fn main() {
             info!("pkg-config error while trying to detect liblouis: {}", e);
             info!("building liblouis 3.7.0 from source");
 
-            let dest = autotools::build("liblouis-3.7.0");
+            let dest = autotools::Config::new("liblouis-3.7.0")
+                .enable("-ucs4", None)
+                .disable("-dependency-tracking", None)
+                .without("-yaml", None)
+                .build();
 
             env::set_var("PKG_CONFIG_PATH", dest.join("lib/pkgconfig"));
             let our_liblouis = pkg_config::Config::new().atleast_version("3.7.0").probe("liblouis").unwrap();
