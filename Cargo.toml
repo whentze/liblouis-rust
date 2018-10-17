@@ -1,6 +1,6 @@
 [package]
 name = "louis"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["muvlon <muvlon@hentzes.de>"]
 description = "Rusty Bindings to liblouis"
 repository = "https://github.com/whentze/liblouis-rust"
@@ -14,7 +14,7 @@ members = [
 ]
 
 [dependencies]
-louis-sys = { path = "louis-sys", version = "0.5.0" }
+louis-sys = { path = "louis-sys", version = "0.6.0" }
 semver = "0.9.0"
 widestring = "0.4.0"
 log = "0.4.5"
