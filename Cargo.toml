@@ -1,6 +1,6 @@
 [package]
 name = "louis"
-version = "0.6.0"
+version = "0.6.1"
 authors = ["muvlon <muvlon@hentzes.de>"]
 description = "Rusty Bindings to liblouis"
 repository = "https://github.com/whentze/liblouis-rust"
