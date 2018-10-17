@@ -3,7 +3,7 @@ stages:
 
 before_script:
   - apt-get update -y
-  - apt-get -y install liblouis-dev clang
+  - apt-get -y install clang
 
 rust-stable:
   stage: build
