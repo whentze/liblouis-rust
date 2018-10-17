@@ -15,7 +15,7 @@ members = [
 ]
 
 [badges]
-gitlab = { repository = "https://gitlab.com/whentze/liblouis-rust" }
+gitlab = { repository = "whentze/liblouis-rust" }
 
 [dependencies]
 louis-sys = { path = "louis-sys", version = "0.6.0" }
