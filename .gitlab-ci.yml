@@ -3,7 +3,7 @@ stages:
 
 before_script:
   - apt-get update -y
-  - apt-get -y install clang
+  - apt-get -y install clang make
 
 rust-stable:
   stage: build
