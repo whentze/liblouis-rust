@@ -169,7 +169,7 @@ impl Louis {
 
     fn reset_logging(&self) {
         unsafe {
-            louis_sys::lou_setLogLevel(louis_sys::logLevels_LOG_INFO);
+            louis_sys::lou_setLogLevel(louis_sys::logLevels_LOU_LOG_INFO);
             louis_sys::lou_registerLogCallback(None);
         };
     }
@@ -184,22 +184,22 @@ impl Drop for Louis {
 
 fn lou_loglevel_to_level(level: c_uint) -> log::Level {
     match level {
-        0...louis_sys::logLevels_LOG_ALL => log::Level::Trace,
-        0...louis_sys::logLevels_LOG_DEBUG => log::Level::Debug,
-        0...louis_sys::logLevels_LOG_INFO => log::Level::Info,
-        0...louis_sys::logLevels_LOG_WARN => log::Level::Warn,
+        0...louis_sys::logLevels_LOU_LOG_ALL => log::Level::Trace,
+        0...louis_sys::logLevels_LOU_LOG_DEBUG => log::Level::Debug,
+        0...louis_sys::logLevels_LOU_LOG_INFO => log::Level::Info,
+        0...louis_sys::logLevels_LOU_LOG_WARN => log::Level::Warn,
         _ => log::Level::Error,
     }
 }
 
 fn filter_to_lou_loglevel(filter: log::LevelFilter) -> c_uint {
     match filter {
-        log::LevelFilter::Trace => louis_sys::logLevels_LOG_ALL,
-        log::LevelFilter::Debug => louis_sys::logLevels_LOG_DEBUG,
-        log::LevelFilter::Info => louis_sys::logLevels_LOG_INFO,
-        log::LevelFilter::Warn => louis_sys::logLevels_LOG_WARN,
-        log::LevelFilter::Error => louis_sys::logLevels_LOG_ERROR,
-        log::LevelFilter::Off => louis_sys::logLevels_LOG_OFF,
+        log::LevelFilter::Trace => louis_sys::logLevels_LOU_LOG_ALL,
+        log::LevelFilter::Debug => louis_sys::logLevels_LOU_LOG_DEBUG,
+        log::LevelFilter::Info => louis_sys::logLevels_LOU_LOG_INFO,
+        log::LevelFilter::Warn => louis_sys::logLevels_LOU_LOG_WARN,
+        log::LevelFilter::Error => louis_sys::logLevels_LOU_LOG_ERROR,
+        log::LevelFilter::Off => louis_sys::logLevels_LOU_LOG_OFF,
     }
 }
 
