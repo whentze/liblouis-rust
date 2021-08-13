@@ -50,6 +50,6 @@ fn main() {
             &line.unwrap(), 
             matches.is_present("backward"), 
             0)
-        );
+        ).unwrap();
     }
 }
