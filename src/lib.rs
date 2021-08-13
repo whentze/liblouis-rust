@@ -184,10 +184,10 @@ impl Drop for Louis {
 
 fn lou_loglevel_to_level(level: c_uint) -> log::Level {
     match level {
-        0...louis_sys::logLevels_LOU_LOG_ALL => log::Level::Trace,
-        0...louis_sys::logLevels_LOU_LOG_DEBUG => log::Level::Debug,
-        0...louis_sys::logLevels_LOU_LOG_INFO => log::Level::Info,
-        0...louis_sys::logLevels_LOU_LOG_WARN => log::Level::Warn,
+        0..=louis_sys::logLevels_LOU_LOG_ALL => log::Level::Trace,
+        0..=louis_sys::logLevels_LOU_LOG_DEBUG => log::Level::Debug,
+        0..=louis_sys::logLevels_LOU_LOG_INFO => log::Level::Info,
+        0..=louis_sys::logLevels_LOU_LOG_WARN => log::Level::Warn,
         _ => log::Level::Error,
     }
 }
