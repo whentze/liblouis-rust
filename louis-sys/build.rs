@@ -23,16 +23,16 @@ fn main() {
         }
         Err(e) => {
             info!("pkg-config error while trying to detect liblouis: {}", e);
-            info!("building liblouis 3.7.0 from source");
+            info!("building liblouis 3.18.0 from source");
 
-            let dest = autotools::Config::new("liblouis-3.7.0")
+            let dest = autotools::Config::new("liblouis-3.18.0")
                 .enable("-ucs4", None)
                 .disable("-dependency-tracking", None)
                 .without("-yaml", None)
                 .build();
 
             env::set_var("PKG_CONFIG_PATH", dest.join("lib/pkgconfig"));
-            pkg_config::Config::new().atleast_version("3.7.0").probe("liblouis").unwrap()
+            pkg_config::Config::new().atleast_version("3.18.0").probe("liblouis").unwrap()
         }
     };
             for path in liblouis.include_paths {
