@@ -58,7 +58,7 @@ fn liblouis_tables() {
         let list_begin = lou_listTables();
         loop {
             let ptr = *(list_begin.offset(offset));
-            if ptr == std::ptr::null() {
+            if ptr == std::ptr::null_mut() {
                 break;
             }
             let table_name = Path::new(CStr::from_ptr(ptr).to_str().unwrap())
@@ -84,10 +84,11 @@ fn liblouis_roundtrip2() {
     let mut inlen = inbuf.capacity() as std::os::raw::c_int;
     let mut outbuf: Vec<widechar> = Vec::with_capacity(50);
     let mut outlen = outbuf.capacity() as std::os::raw::c_int;
+            let table = CString::new("en_US.tbl").unwrap();
 
     let res = unsafe {
         lou_translateString(
-            CString::new("en_US.tbl").unwrap().as_ptr(),
+            table.as_ptr(),
             inbuf.as_ptr(),
             &mut inlen as *mut _,
             outbuf.as_mut_ptr(),
@@ -105,10 +106,11 @@ fn liblouis_roundtrip2() {
 
     let mut outbuf: Vec<widechar> = Vec::with_capacity(50);
     let mut outlen = outbuf.capacity() as std::os::raw::c_int;
+            let table = CString::new("en_US.tbl").unwrap();
 
     let res = unsafe {
         lou_backTranslateString(
-            CString::new("en_US.tbl").unwrap().as_ptr(),
+            table.as_ptr(),
             inbuf.as_ptr(),
             &mut inlen as *mut _,
             outbuf.as_mut_ptr(),
@@ -135,10 +137,11 @@ fn liblouis_roundtrip() {
     let mut inlen = inbuf.capacity() as std::os::raw::c_int;
     let mut outbuf: Vec<widechar> = Vec::with_capacity(50);
     let mut outlen = outbuf.capacity() as std::os::raw::c_int;
+            let table = CString::new("en_US.tbl").unwrap();
 
     let res = unsafe {
         lou_translateString(
-            CString::new("en_US.tbl").unwrap().as_ptr(),
+            table.as_ptr(),
             inbuf.as_ptr(),
             &mut inlen as *mut _,
             outbuf.as_mut_ptr(),
@@ -156,10 +159,11 @@ fn liblouis_roundtrip() {
 
     let mut outbuf: Vec<widechar> = Vec::with_capacity(50);
     let mut outlen = outbuf.capacity() as std::os::raw::c_int;
+            let table = CString::new("en_US.tbl").unwrap();
 
     let res = unsafe {
         lou_backTranslateString(
-            CString::new("en_US.tbl").unwrap().as_ptr(),
+            table.as_ptr(),
             inbuf.as_ptr(),
             &mut inlen as *mut _,
             outbuf.as_mut_ptr(),
@@ -192,7 +196,7 @@ fn liblouis_logging() {
     // Install our custom stdout log callback and lower the log level to be more noisy
     unsafe {
         lou_registerLogCallback(Some(log_callback));
-        lou_setLogLevel(logLevels_LOG_ALL);
+        lou_setLogLevel(logLevels_LOU_LOG_ALL);
     }
     let sentence = "Let's translate this sentence to test logging";
 
@@ -200,10 +204,11 @@ fn liblouis_logging() {
     let mut inlen = inbuf.capacity() as std::os::raw::c_int;
     let mut outbuf: Vec<widechar> = Vec::with_capacity(50);
     let mut outlen = outbuf.capacity() as std::os::raw::c_int;
+            let table = CString::new("en_US.tbl").unwrap();
 
     let res = unsafe {
         lou_translateString(
-            CString::new("en_US.tbl").unwrap().as_ptr(),
+            table.as_ptr(),
             inbuf.as_ptr(),
             &mut inlen as *mut _,
             outbuf.as_mut_ptr(),
@@ -221,6 +226,6 @@ fn liblouis_logging() {
     // Reset log level and callback
     unsafe {
         lou_registerLogCallback(None);
-        lou_setLogLevel(logLevels_LOG_INFO);
+        lou_setLogLevel(logLevels_LOU_LOG_INFO);
     }
 }}
